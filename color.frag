@@ -11,7 +11,7 @@ out vec4 fragColor;
 void main() {
     float distance = length(vec3(v_Position));
     vec3 final_color = vec3(0.0);
-    int size = int(500.0*(abs(1.0-3.02/distance)));
+    int size = int(50.0*(abs(1.0-3.6/distance)));
     for (int i=-size; i <= size; ++i) {
         for (int j=-size; j <= size; ++j) {
             final_color += texture(u_Sampler, v_TexCoord + vec2(i, j) / 300.0).rgb;

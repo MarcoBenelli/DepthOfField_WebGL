@@ -52,8 +52,8 @@ function start(gl, canvas) {
         return;
     }
 
-    const eyeX = 0;
-    const eyeY = 0;
+    const eyeX = 2;
+    const eyeY = 2;
     const eyeZ = 3;
 
     // Set the matrix to be used for to set the camera view
@@ -89,12 +89,57 @@ function start(gl, canvas) {
 function initVertexBuffers(gl) {
     const verticesTexCoords = new Float32Array([
         // Vertex coordinates, texture coordinate
-        -0.5, 0.5, 0.0, 0.0, 1.0,
-        -0.5, -0.5, 0.0, 0.0, 0.0,
-        0.5, 0.5, 0.0, 1.0, 1.0,
-        0.5, -0.5, 0.0, 1.0, 0.0,
+
+        //FRONT FACE
+        -0.5, 0.5, 0.0, 0.0, 1.0, //v0
+        -0.5, -0.5, 0.0, 0.0, 0.0, //v1
+        0.5, 0.5, 0.0, 1.0, 1.0, //v2
+        0.5, -0.5, 0.0, 1.0, 0.0, //v3
+        0.5, 0.5, 0.0, 1.0, 1.0, //v2
+        -0.5, -0.5, 0.0, 0.0, 0.0, //v1
+
+        //RIGHT FACE
+        0.5, 0.5, 0.0, 0.0, 1.0, //v2
+        0.5, -0.5, 0.0, 0.0, 0.0, //v3
+        0.5, 0.5, -1.0, 1.0, 1.0, //v4
+        0.5, -0.5, -1.0, 1.0, 0.0, //v5
+        0.5, 0.5, -1.0, 1.0, 1.0, //v4
+        0.5, -0.5, 0.0, 0.0, 0.0, //v3
+
+        //BACK FACE
+        0.5, 0.5, -1.0, 0.0, 1.0, //v4
+        0.5, -0.5, -1.0, 0.0, 0.0, //v5
+        -0.5, 0.5, -1.0, 1.0, 1.0, //v6
+        -0.5, -0.5, -1.0, 1.0, 0.0, //v7
+        -0.5, 0.5, -1.0, 1.0, 1.0, //v6
+        0.5, -0.5, -1.0, 0.0, 0.0, //v5
+
+        //LEFT FACE
+        -0.5, 0.5, -1.0, 0.0, 1.0, //v6
+        -0.5, -0.5, -1.0, 0.0, 0.0, //v7
+        -0.5, 0.5, 0.0, 1.0, 1.0, //v0
+        -0.5, -0.5, 0.0, 1.0, 0.0, //v1
+        -0.5, 0.5, 0.0, 1.0, 1.0, //v0
+        -0.5, -0.5, -1.0, 0.0, 0.0, //v7
+
+        //TOP FACE
+        -0.5, 0.5, -1.0, 0.0, 1.0, //v6
+        -0.5, 0.5, 0.0, 0.0, 0.0, //v0
+        0.5, 0.5, -1.0, 1.0, 1.0, //v4
+        0.5, 0.5, 0.0, 1.0, 0.0, //v2
+        0.5, 0.5, -1.0, 1.0, 1.0, //v4
+        -0.5, 0.5, 0.0, 0.0, 0.0, //v0
+
+        //BOTTOM FACE
+        -0.5, -0.5, 0.0, 0.0, 1.0, //v1
+        -0.5, -0.5, -1.0, 0.0, 0.0, //v7
+        0.5, -0.5, 0.0, 1.0, 1.0, //v3
+        0.5, -0.5, -1.0, 1.0, 0.0, //v5
+        0.5, -0.5, 0.0, 1.0, 1.0, //v3
+        -0.5, -0.5, -1.0, 0.0, 0.0, //v7
+
     ]);
-    const n = 4; // The number of vertices
+    const n = 36; // The number of vertices
 
     // Create the buffer object
     const vertexTexCoordBuffer = gl.createBuffer();
@@ -177,7 +222,7 @@ function loadTexture(gl, n, texture, u_Sampler, image) {
 
     gl.clear(gl.COLOR_BUFFER_BIT);   // Clear <canvas>
 
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, n); // Draw the rectangle
+    gl.drawArrays(gl.TRIANGLES, 0, n); // Draw the rectangle
 }
 
 // Read shader from file
