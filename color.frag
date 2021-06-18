@@ -15,9 +15,9 @@ void main() {
     int size = int(distance);
     for (int i=-size; i <= size; ++i) {
         for (int j=-size; j <= size; ++j) {
-            final_color += texture(u_Sampler, (v_TexCoord+vec2(float(i), float(j)))).rgb;
+            final_color += texture(u_Sampler, v_TexCoord + vec2(i, j) / 300.0).rgb;
         }
     }
     //fragColor = vec4(texture(u_Sampler, v_TexCoord).rgb * min(distance, 1.0), 1.0);
-    fragColor = vec4(final_color / float((size*2+1)*(size*2+1)), 1.0);
+    fragColor = vec4(final_color / float((2*size+1)*(2*size+1)), 1.0);
 }

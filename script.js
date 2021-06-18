@@ -52,9 +52,9 @@ function start(gl, canvas) {
         return;
     }
 
-    const eyeX = 0;
+    const eyeX = 2;
     const eyeY = 0;
-    const eyeZ = 0.5;
+    const eyeZ = 2;
 
     // Set the matrix to be used for to set the camera view
     const viewMatrix = new Matrix4();
@@ -67,8 +67,22 @@ function start(gl, canvas) {
     // Multiply model matrix to view matrix
     const modelViewMatrix = viewMatrix.multiply(modelMatrix);
 
-    // Pass the model view projection matrix
+    // Pass the model view matrix
     gl.uniformMatrix4fv(u_ModelViewMatrix, false, modelViewMatrix.elements);
+
+    // Get the storage location of u_ProjMatrix
+    const u_ProjMatrix = gl.getUniformLocation(gl.program, 'u_ProjMatrix');
+    if (!u_ProjMatrix) {
+        console.log('Failed to get the storage locations of u_ProjMatrix');
+        return;
+    }
+
+    // Set the matrix to be used for projection
+    const projMatrix = new Matrix4();
+    projMatrix.setPerspective(30, canvas.width/canvas.height, 1, 100);
+
+    // Pass the projection matrix
+    gl.uniformMatrix4fv(u_ProjMatrix, false, projMatrix.elements);
 
     // Get the storage location of u_Camera
     const u_Camera = gl.getUniformLocation(gl.program, 'u_Camera');
@@ -147,7 +161,7 @@ function initTextures(gl, n) {
         loadTexture(gl, n, texture, u_Sampler, image);
     };
     // Tell the browser to load an image
-    image.src = 'resources/sky.jpg';
+    image.src = 'resources/checker.jpg';
 
     return true;
 }
@@ -161,6 +175,8 @@ function loadTexture(gl, n, texture, u_Sampler, image) {
 
     // Set the texture parameters
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     // Set the texture image
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
 
