@@ -52,9 +52,9 @@ function start(gl, canvas) {
         return;
     }
 
-    const eyeX = 2;
+    const eyeX = 0;
     const eyeY = 0;
-    const eyeZ = 2;
+    const eyeZ = 3;
 
     // Set the matrix to be used for to set the camera view
     const viewMatrix = new Matrix4();
@@ -84,14 +84,6 @@ function start(gl, canvas) {
     // Pass the projection matrix
     gl.uniformMatrix4fv(u_ProjMatrix, false, projMatrix.elements);
 
-    // Get the storage location of u_Camera
-    const u_Camera = gl.getUniformLocation(gl.program, 'u_Camera');
-    if (!u_Camera) {
-        console.log('Failed to get the storage locations of u_Camera');
-        return;
-    }
-
-    gl.uniform3f(u_Camera, eyeX, eyeY, eyeZ);
 }
 
 function initVertexBuffers(gl) {
