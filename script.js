@@ -8,6 +8,14 @@ function main() {
     // Retrieve <canvas> element
     const canvas = document.getElementById('webgl2');
 
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.onresize = function() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    };
+
     // Get the rendering context for WebGL
     //var gl = getWebGLContext(canvas);
     const gl = canvas.getContext('webgl2');
@@ -54,7 +62,7 @@ function start(gl, canvas) {
 
     const eyeX = 2;
     const eyeY = 2;
-    const eyeZ = 3;
+    const eyeZ = 12;
 
     // Set the matrix to be used for to set the camera view
     const viewMatrix = new Matrix4();
@@ -89,6 +97,8 @@ function start(gl, canvas) {
 function initVertexBuffers(gl) {
     const verticesTexCoords = new Float32Array([
         // Vertex coordinates, texture coordinate
+
+        //first cube
 
         //FRONT FACE
         -0.5, 0.5, 0.0, 0.0, 1.0, //v0
@@ -138,8 +148,57 @@ function initVertexBuffers(gl) {
         0.5, -0.5, 0.0, 1.0, 1.0, //v3
         -0.5, -0.5, -1.0, 0.0, 0.0, //v7
 
+        //second cube
+
+        //FRONT FACE
+        -0.5, 0.5, 8.0, 0.0, 1.0, //v0
+        -0.5, -0.5, 8.0, 0.0, 0.0, //v1
+        0.5, 0.5, 8.0, 1.0, 1.0, //v2
+        0.5, -0.5, 8.0, 1.0, 0.0, //v3
+        0.5, 0.5, 8.0, 1.0, 1.0, //v2
+        -0.5, -0.5, 8.0, 0.0, 0.0, //v1
+
+        //RIGHT FACE
+        0.5, 0.5, 8.0, 0.0, 1.0, //v2
+        0.5, -0.5, 8.0, 0.0, 0.0, //v3
+        0.5, 0.5, 7.0, 1.0, 1.0, //v4
+        0.5, -0.5, 7.0, 1.0, 0.0, //v5
+        0.5, 0.5, 7.0, 1.0, 1.0, //v4
+        0.5, -0.5, 8.0, 0.0, 0.0, //v3
+
+        //BACK FACE
+        0.5, 0.5, 7.0, 0.0, 1.0, //v4
+        0.5, -0.5, 7.0, 0.0, 0.0, //v5
+        -0.5, 0.5, 7.0, 1.0, 1.0, //v6
+        -0.5, -0.5, 7.0, 1.0, 0.0, //v7
+        -0.5, 0.5, 7.0, 1.0, 1.0, //v6
+        0.5, -0.5, 7.0, 0.0, 0.0, //v5
+
+        //LEFT FACE
+        -0.5, 0.5, 7.0, 0.0, 1.0, //v6
+        -0.5, -0.5, 7.0, 0.0, 0.0, //v7
+        -0.5, 0.5, 8.0, 1.0, 1.0, //v0
+        -0.5, -0.5, 8.0, 1.0, 0.0, //v1
+        -0.5, 0.5, 8.0, 1.0, 1.0, //v0
+        -0.5, -0.5, 7.0, 0.0, 0.0, //v7
+
+        //TOP FACE
+        -0.5, 0.5, 7.0, 0.0, 1.0, //v6
+        -0.5, 0.5, 8.0, 0.0, 0.0, //v0
+        0.5, 0.5, 7.0, 1.0, 1.0, //v4
+        0.5, 0.5, 8.0, 1.0, 0.0, //v2
+        0.5, 0.5, 7.0, 1.0, 1.0, //v4
+        -0.5, 0.5, 8.0, 0.0, 0.0, //v0
+
+        //BOTTOM FACE
+        -0.5, -0.5, 8.0, 0.0, 1.0, //v1
+        -0.5, -0.5, 7.0, 0.0, 0.0, //v7
+        0.5, -0.5, 8.0, 1.0, 1.0, //v3
+        0.5, -0.5, 7.0, 1.0, 0.0, //v5
+        0.5, -0.5, 8.0, 1.0, 1.0, //v3
+        -0.5, -0.5, 7.0, 0.0, 0.0, //v7
     ]);
-    const n = 36; // The number of vertices
+    const n = 72; // The number of vertices
 
     // Create the buffer object
     const vertexTexCoordBuffer = gl.createBuffer();
@@ -198,7 +257,7 @@ function initTextures(gl, n) {
         loadTexture(gl, n, texture, u_Sampler, image);
     };
     // Tell the browser to load an image
-    image.src = 'resources/checker.jpg';
+    image.src = 'resources/sky.jpg';
 
     return true;
 }

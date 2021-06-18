@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8"/>
     <title>Depth of Field</title>
+
+    <link rel="stylesheet" href="styles.css">
 
     <script src="lib/webgl-utils.js" defer></script>
     <script src="lib/webgl-debug.js" defer></script>
     <script src="lib/cuon-utils.js" defer></script>
     <script src="lib/cuon-matrix.js" defer></script>
     <script src="script.js" defer></script>
-  </head>
+</head>
 
-  <body onload="main()">
-    <canvas id="webgl2" width="400" height="400">
+<body onload="main()">
+<canvas id="webgl2">
     Please use a browser that supports "canvas"
-    </canvas>
-  </body>
+</canvas>
+<div>
+    <div>
+        <input type="range" id="slider1" name="volume" min="0" max="11">
+        <label for="slider1">Volume</label>
+    </div>
+    <div>
+        <input type="range" id="slider2" name="volume" min="0" max="11">
+        <label for="slider2">Volume</label>
+    </div>
+</div>
+</body>
 </html>
