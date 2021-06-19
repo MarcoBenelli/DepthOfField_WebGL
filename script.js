@@ -263,6 +263,13 @@ function initTextures(gl, n) {
 }
 
 function loadTexture(gl, n, texture, u_Sampler, image) {
+    // Get the storage location of u_TexResolution
+    const u_TexResolution = gl.getUniformLocation(gl.program, 'u_TexResolution');
+    if (!u_TexResolution) {
+        console.log('Failed to get the storage locations of u_TexResolution');
+        return;
+    }
+    gl.uniform2fv(u_TexResolution,[image.width, image.height]);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1); // Flip the image's y axis
     // Enable texture unit0
     gl.activeTexture(gl.TEXTURE0);
