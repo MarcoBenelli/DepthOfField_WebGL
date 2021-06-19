@@ -3,7 +3,6 @@ body {
 }
 
 canvas {
-    /*display: block;*/
     position: absolute;
 }
 
@@ -13,4 +12,8 @@ div {
 
 div div {
     position: relative;
+}
+
+label {
+    color: #fff;
 }

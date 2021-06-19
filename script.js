@@ -11,11 +11,6 @@ function main() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    window.onresize = function() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    };
-
     // Get the rendering context for WebGL
     //var gl = getWebGLContext(canvas);
     const gl = canvas.getContext('webgl2');
@@ -60,9 +55,11 @@ function start(gl, canvas) {
         return;
     }
 
+    const eyeZRange = document.getElementById('eye-z');
+
     const eyeX = 2;
     const eyeY = 2;
-    const eyeZ = 12;
+    let eyeZ = eyeZRange.value;
 
     // Set the matrix to be used for to set the camera view
     const viewMatrix = new Matrix4();
@@ -73,7 +70,7 @@ function start(gl, canvas) {
     const modelMatrix = new Matrix4();
 
     // Multiply model matrix to view matrix
-    const modelViewMatrix = viewMatrix.multiply(modelMatrix);
+    let modelViewMatrix = viewMatrix.multiply(modelMatrix);
 
     // Pass the model view matrix
     gl.uniformMatrix4fv(u_ModelViewMatrix, false, modelViewMatrix.elements);
@@ -87,11 +84,45 @@ function start(gl, canvas) {
 
     // Set the matrix to be used for projection
     const projMatrix = new Matrix4();
-    projMatrix.setPerspective(30, canvas.width/canvas.height, 1, 100);
+    projMatrix.setPerspective(30, canvas.width / canvas.height, 1, 100);
 
     // Pass the projection matrix
     gl.uniformMatrix4fv(u_ProjMatrix, false, projMatrix.elements);
 
+    window.onresize = function () {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        projMatrix.setPerspective(30, canvas.width / canvas.height, 1, 100);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLES, 0, n);
+    };
+
+    eyeZRange.onchange = function () {
+        eyeZ = eyeZRange.value;
+        viewMatrix.setLookAt(eyeX, eyeY, eyeZ, 0, 0, 0, 0, 1, 0);
+        modelViewMatrix = viewMatrix.multiply(modelMatrix);
+        gl.uniformMatrix4fv(u_ModelViewMatrix, false, modelViewMatrix.elements);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLES, 0, n);
+    };
+
+    const apertureRange = document.getElementById('aperture');
+    const u_FocalAperture = gl.getUniformLocation(gl.program, 'u_FocalAperture');
+    gl.uniform1f(u_FocalAperture, Number(apertureRange.value));
+    apertureRange.onchange = function () {
+        gl.uniform1f(u_FocalAperture, Number(apertureRange.value));
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLES, 0, n);
+    };
+
+    const distanceRange = document.getElementById('distance');
+    const u_FocusDistance = gl.getUniformLocation(gl.program, 'u_FocusDistance');
+    gl.uniform1f(u_FocusDistance, Number(distanceRange.value));
+    distanceRange.onchange = function () {
+        gl.uniform1f(u_FocusDistance, Number(distanceRange.value));
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLES, 0, n);
+    };
 }
 
 function initVertexBuffers(gl) {
@@ -269,7 +300,8 @@ function loadTexture(gl, n, texture, u_Sampler, image) {
         console.log('Failed to get the storage locations of u_TexResolution');
         return;
     }
-    gl.uniform2fv(u_TexResolution,[image.width, image.height]);
+    gl.uniform2fv(u_TexResolution, [image.width, image.height]);
+
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1); // Flip the image's y axis
     // Enable texture unit0
     gl.activeTexture(gl.TEXTURE0);
