@@ -1,8 +1,7 @@
 import * as THREE from './three/build/three.module.js';
 import {OrbitControls} from './three/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from './three/examples/jsm/loaders/GLTFLoader.js';
-//import Stats from './three/examples/jsm/libs/stats.module.js';
-//import { GUI } from './three/examples/jsm/libs/dat.gui.module.js';
+import { GUI } from './three/examples/jsm/libs/dat.gui.module.js';
 import {EffectComposer} from './three/examples/jsm/postprocessing/EffectComposer.js';
 import {RenderPass} from './three/examples/jsm/postprocessing/RenderPass.js';
 import {BokehPass} from './three/examples/jsm/postprocessing/BokehPass.js';
@@ -47,6 +46,29 @@ scene.background = new THREE.Color('blue');
     gltfLoader.load('glTF_models/shuttle/Orbiter_Space_Shuttle_OV-103_Discovery-150k-4096.gltf', (gltf) => {
         scene.add(gltf.scene);
     });
+}
+
+{
+    const effectController = {
+
+        focus: 500.0,
+        aperture: 5,
+        maxblur: 0.01
+
+    };
+
+    const matChanger = function ( ) {
+
+        postprocessing.bokeh.uniforms[ "focus" ].value = effectController.focus;
+        postprocessing.bokeh.uniforms[ "aperture" ].value = effectController.aperture * 0.00001;
+        postprocessing.bokeh.uniforms[ "maxblur" ].value = effectController.maxblur;
+
+    };
+
+    const gui = new GUI();
+    gui.add( effectController, "focus", 10.0, 3000.0, 10 ).onChange( matChanger );
+    gui.add( effectController, "aperture", 0, 10, 0.1 ).onChange( matChanger );
+    gui.add( effectController, "maxblur", 0.0, 0.01, 0.001 ).onChange( matChanger );
 }
 
 const renderPass = new RenderPass(scene, camera);
