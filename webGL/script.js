@@ -107,20 +107,122 @@ function start(gl, canvas) {
         gl.drawArrays(gl.TRIANGLES, 0, n);
     };
 
+    const sagCheckbox = document.getElementById('sag');
+    const u_SagV = gl.getUniformLocation(gl.program, 'u_SagV');
+    if (!u_SagV) {
+        console.log('Failed to get the storage locations of u_SagV');
+        return;
+    }
+    gl.uniform1f(u_SagV, sagCheckbox.checked);
+    const u_SagF = gl.getUniformLocation(gl.program, 'u_SagF');
+    if (!u_SagF) {
+        console.log('Failed to get the storage locations of u_SagF');
+        return;
+    }
+    gl.uniform1f(u_SagF, sagCheckbox.checked);
+    sagCheckbox.onchange = function () {
+        gl.uniform1f(u_SagV, sagCheckbox.checked);
+        gl.uniform1f(u_SagF, sagCheckbox.checked);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLES, 0, n);
+    };
+
     const apertureRange = document.getElementById('aperture');
-    const u_FocalAperture = gl.getUniformLocation(gl.program, 'u_FocalAperture');
-    gl.uniform1f(u_FocalAperture, Number(apertureRange.value));
+    const u_FocalApertureV = gl.getUniformLocation(gl.program, 'u_FocalApertureV');
+    if (!u_FocalApertureV) {
+        console.log('Failed to get the storage locations of u_FocalApertureV');
+        return;
+    }
+    gl.uniform1f(u_FocalApertureV, Number(apertureRange.value));
+    const u_FocalApertureF = gl.getUniformLocation(gl.program, 'u_FocalApertureF');
+    if (!u_FocalApertureF) {
+        console.log('Failed to get the storage locations of u_FocalApertureF');
+        return;
+    }
+    gl.uniform1f(u_FocalApertureF, Number(apertureRange.value));
     apertureRange.onchange = function () {
-        gl.uniform1f(u_FocalAperture, Number(apertureRange.value));
+        gl.uniform1f(u_FocalApertureV, Number(apertureRange.value));
+        gl.uniform1f(u_FocalApertureF, Number(apertureRange.value));
         gl.clear(gl.COLOR_BUFFER_BIT);
         gl.drawArrays(gl.TRIANGLES, 0, n);
     };
 
     const distanceRange = document.getElementById('distance');
-    const u_FocusDistance = gl.getUniformLocation(gl.program, 'u_FocusDistance');
-    gl.uniform1f(u_FocusDistance, Number(distanceRange.value));
+    const u_FocusDistanceV = gl.getUniformLocation(gl.program, 'u_FocusDistanceV');
+    if (!u_FocusDistanceV) {
+        console.log('Failed to get the storage locations of u_FocusDistanceV');
+        return;
+    }
+    gl.uniform1f(u_FocusDistanceV, Number(distanceRange.value));
+    const u_FocusDistanceF = gl.getUniformLocation(gl.program, 'u_FocusDistanceF');
+    if (!u_FocusDistanceF) {
+        console.log('Failed to get the storage locations of u_FocusDistanceF');
+        return;
+    }
+    gl.uniform1f(u_FocusDistanceF, Number(distanceRange.value));
     distanceRange.onchange = function () {
-        gl.uniform1f(u_FocusDistance, Number(distanceRange.value));
+        gl.uniform1f(u_FocusDistanceV, Number(distanceRange.value));
+        gl.uniform1f(u_FocusDistanceF, Number(distanceRange.value));
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLES, 0, n);
+    };
+
+    const maxblurRange = document.getElementById('maxblur');
+    const u_MaxBlurV = gl.getUniformLocation(gl.program, 'u_MaxBlurV');
+    if (!u_MaxBlurV) {
+        console.log('Failed to get the storage locations of u_MaxBlurV');
+        return;
+    }
+    gl.uniform1i(u_MaxBlurV, Number(maxblurRange.value));
+    const u_MaxBlurF = gl.getUniformLocation(gl.program, 'u_MaxBlurF');
+    if (!u_MaxBlurF) {
+        console.log('Failed to get the storage locations of u_MaxBlurF');
+        return;
+    }
+    gl.uniform1i(u_MaxBlurF, Number(maxblurRange.value));
+    maxblurRange.onchange = function () {
+        gl.uniform1i(u_MaxBlurV, Number(maxblurRange.value));
+        gl.uniform1i(u_MaxBlurF, Number(maxblurRange.value));
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLES, 0, n);
+    };
+
+    const hyperbolicCheckbox = document.getElementById('hyperbolic');
+    const u_HyperbolicV = gl.getUniformLocation(gl.program, 'u_HyperbolicV');
+    if (!u_HyperbolicV) {
+        console.log('Failed to get the storage locations of u_HyperbolicV');
+        return;
+    }
+    gl.uniform1i(u_HyperbolicV, hyperbolicCheckbox.checked);
+    const u_HyperbolicF = gl.getUniformLocation(gl.program, 'u_HyperbolicF');
+    if (!u_HyperbolicF) {
+        console.log('Failed to get the storage locations of u_HyperbolicF');
+        return;
+    }
+    gl.uniform1i(u_HyperbolicF, hyperbolicCheckbox.checked);
+    hyperbolicCheckbox.onchange = function () {
+        gl.uniform1i(u_HyperbolicV, hyperbolicCheckbox.checked);
+        gl.uniform1i(u_HyperbolicF, hyperbolicCheckbox.checked);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.drawArrays(gl.TRIANGLES, 0, n);
+    };
+
+    const squaredCheckbox = document.getElementById('squared');
+    const u_SquaredV = gl.getUniformLocation(gl.program, 'u_SquaredV');
+    if (!u_SquaredV) {
+        console.log('Failed to get the storage locations of u_SquaredV');
+        return;
+    }
+    gl.uniform1i(u_SquaredV, squaredCheckbox.checked);
+    const u_SquaredF = gl.getUniformLocation(gl.program, 'u_SquaredF');
+    if (!u_SquaredF) {
+        console.log('Failed to get the storage locations of u_SquaredF');
+        return;
+    }
+    gl.uniform1i(u_SquaredF, squaredCheckbox.checked);
+    squaredCheckbox.onchange = function () {
+        gl.uniform1i(u_SquaredV, squaredCheckbox.checked);
+        gl.uniform1i(u_SquaredF, squaredCheckbox.checked);
         gl.clear(gl.COLOR_BUFFER_BIT);
         gl.drawArrays(gl.TRIANGLES, 0, n);
     };
@@ -289,7 +391,7 @@ function initTextures(gl, n) {
         loadTexture(gl, n, texture, u_Sampler, image);
     };
     // Tell the browser to load an image
-    image.src = 'textures/bricks.jpg';
+    image.src = 'textures/sky.jpg';
 
     return true;
 }

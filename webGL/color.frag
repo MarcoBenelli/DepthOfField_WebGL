@@ -4,21 +4,45 @@ precision mediump float;
 #endif
 
 uniform sampler2D u_Sampler;
-uniform float u_FocalAperture;
-uniform float u_FocusDistance;
+uniform float u_FocalApertureF;
+uniform float u_FocusDistanceF;
+uniform int u_MaxBlurF;
+uniform bool u_HyperbolicF; // if true 1/x-1 else x-1
+uniform bool u_SquaredF; // if true x*x else abs(x)
+uniform bool u_SagF; // Scatter-as-Gather
 uniform vec2 u_TexResolution;
 in vec2 v_TexCoord;
 in vec4 v_Position;
+flat in int v_Radius;
 out vec4 fragColor;
 
 void main() {
-    float distance = length(vec3(v_Position));
+    int radius;
+    if (u_SagF) {
+        float distance = length(vec3(v_Position));
+        float size = distance/u_FocusDistanceF;
+        if (u_HyperbolicF) {
+            size = 1.0/size;
+        }
+        size -= 1.0;
+        if (u_SquaredF) {
+            size *= size;
+        } else {
+            size = abs(size);
+        }
+        radius = min(int(u_FocalApertureF*size), u_MaxBlurF);
+    } else {
+        radius = v_Radius;
+    }
     vec3 final_color = vec3(0.0);
-    int size = int(u_FocalAperture*(abs(1.0-u_FocusDistance/distance)));
-    for (int i=-size; i <= size; ++i) {
-        for (int j=-size; j <= size; ++j) {
-            final_color += texture(u_Sampler, v_TexCoord + vec2(i, j) / u_TexResolution).rgb;
+    int total = 0;
+    for (int i=-radius; i <= radius; ++i) {
+        for (int j=-radius; j <= radius; ++j) {
+            if (i*i + j*j <= radius*radius) {
+                final_color += texture(u_Sampler, v_TexCoord + vec2(i, j) / u_TexResolution).rgb;
+                total++;
+            }
         }
     }
-    fragColor = vec4(final_color / float((2*size+1)*(2*size+1)), 1.0);
+    fragColor = vec4(final_color / float(total), 1.0);
 }
