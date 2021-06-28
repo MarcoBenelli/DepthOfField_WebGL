@@ -21,6 +21,13 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color('blue');
 
 {
+    const color = 0x0000FF; //ambient blue light
+    const intensity = 0.50;
+    const light = new THREE.AmbientLight(color, intensity);
+    scene.add(light);
+}
+
+{
     const color = 0xFFFFFF;
     const intensity = 1;
     const light = new THREE.DirectionalLight(color, intensity);
@@ -41,9 +48,72 @@ scene.background = new THREE.Color('blue');
     ]);
 }
 
+//SHUTTLES
 {
     const gltfLoader = new GLTFLoader();
-    gltfLoader.load('glTF_models/shuttle/Orbiter_Space_Shuttle_OV-103_Discovery-150k-4096.gltf', (gltf) => {
+    gltfLoader.load('glTF_models/orbiter_space_shuttle_ov-103_discovery/scene.gltf', (gltf) => {
+        scene.add(gltf.scene);
+
+    });
+}
+
+{
+    const gltfLoader = new GLTFLoader();
+    gltfLoader.load('glTF_models/orbiter_space_shuttle_ov-103_discovery/scene.gltf', (gltf) => {
+        gltf.scene.position.x = 30;
+        gltf.scene.position.z = 15;
+        scene.add(gltf.scene);
+    });
+}
+
+{
+    const gltfLoader = new GLTFLoader();
+    gltfLoader.load('glTF_models/orbiter_space_shuttle_ov-103_discovery/scene.gltf', (gltf) => {
+        gltf.scene.position.x = -30;
+        gltf.scene.position.z = 15;
+        scene.add(gltf.scene);
+    });
+}
+
+//ALIEN
+{
+    const gltfLoader = new GLTFLoader();
+    gltfLoader.load('glTF_models/space_cast_one/scene.gltf', (gltf) => {
+        gltf.scene.rotation.x = 180;
+        gltf.scene.position.x = 0;
+        gltf.scene.position.y = 5;
+        gltf.scene.position.z = 50;
+        scene.add(gltf.scene);
+    });
+}
+
+//ASTEROIDS
+{
+    const gltfLoader = new GLTFLoader();
+    gltfLoader.load('glTF_models/foraminifera_zellia_and_parafusulina_pri/scene.gltf', (gltf) => {
+        gltf.scene.position.x = -15;
+        gltf.scene.position.y = 5;
+        gltf.scene.position.z = 15;
+        scene.add(gltf.scene);
+    });
+}
+
+{
+    const gltfLoader = new GLTFLoader();
+    gltfLoader.load('glTF_models/foraminifera_zellia_and_parafusulina_pri/scene.gltf', (gltf) => {
+        gltf.scene.position.x = 15;
+        gltf.scene.position.y = 5;
+        gltf.scene.position.z = 15;
+        scene.add(gltf.scene);
+    });
+}
+
+{
+    const gltfLoader = new GLTFLoader();
+    gltfLoader.load('glTF_models/foraminifera_zellia_and_parafusulina_pri/scene.gltf', (gltf) => {
+        gltf.scene.position.x = 0;
+        gltf.scene.position.y = 5;
+        gltf.scene.position.z = 40;
         scene.add(gltf.scene);
     });
 }
