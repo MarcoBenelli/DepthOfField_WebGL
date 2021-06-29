@@ -1,10 +1,10 @@
-import * as THREE from './three/build/three.module.js';
-import {OrbitControls} from './three/examples/jsm/controls/OrbitControls.js';
-import {GLTFLoader} from './three/examples/jsm/loaders/GLTFLoader.js';
-import {GUI} from './three/examples/jsm/libs/dat.gui.module.js';
-import {EffectComposer} from './three/examples/jsm/postprocessing/EffectComposer.js';
-import {RenderPass} from './three/examples/jsm/postprocessing/RenderPass.js';
-import {BokehPass} from './three/examples/jsm/postprocessing/BokehPass.js';
+import * as THREE from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/build/three.module.js';
+import {OrbitControls} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/controls/OrbitControls.js';
+import {GLTFLoader} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/loaders/GLTFLoader.js';
+import {GUI} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/libs/dat.gui.module.js';
+import {EffectComposer} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/postprocessing/EffectComposer.js';
+import {RenderPass} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/postprocessing/RenderPass.js';
+import {BokehPass} from 'https://threejsfundamentals.org/threejs/resources/threejs/r127/examples/jsm/postprocessing/BokehPass.js';
 
 const canvas = document.querySelector('#c');
 const renderer = new THREE.WebGLRenderer({canvas});
@@ -39,12 +39,12 @@ scene.background = new THREE.Color('blue');
 {
     const loader = new THREE.CubeTextureLoader();
     scene.background = loader.load([
-        './three/examples/textures/cube/MilkyWay/dark-s_px.jpg',
-        './three/examples/textures/cube/MilkyWay/dark-s_nx.jpg',
-        './three/examples/textures/cube/MilkyWay/dark-s_py.jpg',
-        './three/examples/textures/cube/MilkyWay/dark-s_ny.jpg',
-        './three/examples/textures/cube/MilkyWay/dark-s_pz.jpg',
-        './three/examples/textures/cube/MilkyWay/dark-s_nz.jpg',
+        'background_texture/dark-s_px.jpg',
+        'background_texture/dark-s_nx.jpg',
+        'background_texture/dark-s_py.jpg',
+        'background_texture/dark-s_ny.jpg',
+        'background_texture/dark-s_pz.jpg',
+        'background_texture/dark-s_nz.jpg',
     ]);
 }
 
