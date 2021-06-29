@@ -3,14 +3,13 @@ div {
     float: left;
     margin: 2%;
     color: white;
-    font-size: x-large;
+    font-size: large;
 }
 
 h2 {
     text-align: center;
     color: yellow;
     font-family: sans-serif;
-    font-size: xxx-large;
 }
 
 footer {
