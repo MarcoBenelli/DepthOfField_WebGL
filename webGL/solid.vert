@@ -7,9 +7,9 @@ uniform mat4 u_ProjMatrix;
 uniform float u_FocalApertureV;
 uniform float u_FocusDistanceV;
 uniform int u_MaxBlurV;
-uniform bool u_HyperbolicV; // if true 1/x-1 else x-1
-uniform bool u_SquaredV; // if true x*x else abs(x)
-uniform bool u_SagV; // Scatter-as-Gather
+uniform bool u_HyperbolicV;// if true 1/x-1 else x-1
+uniform bool u_SquaredV;// if true x*x else abs(x)
+uniform bool u_SagV;// Scatter-as-Gather
 out vec2 v_TexCoord;
 out vec4 v_Position;
 flat out int v_Radius;

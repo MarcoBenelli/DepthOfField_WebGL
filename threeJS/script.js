@@ -1,7 +1,7 @@
 import * as THREE from './three/build/three.module.js';
 import {OrbitControls} from './three/examples/jsm/controls/OrbitControls.js';
 import {GLTFLoader} from './three/examples/jsm/loaders/GLTFLoader.js';
-import { GUI } from './three/examples/jsm/libs/dat.gui.module.js';
+import {GUI} from './three/examples/jsm/libs/dat.gui.module.js';
 import {EffectComposer} from './three/examples/jsm/postprocessing/EffectComposer.js';
 import {RenderPass} from './three/examples/jsm/postprocessing/RenderPass.js';
 import {BokehPass} from './three/examples/jsm/postprocessing/BokehPass.js';
@@ -11,7 +11,7 @@ const renderer = new THREE.WebGLRenderer({canvas});
 const postprocessing = {};
 
 const camera = new THREE.PerspectiveCamera(90, 2, 0.1, 256);
-camera.position.set(10, 12, 4);
+camera.position.set(16, 16, -8);
 
 const controls = new OrbitControls(camera, canvas);
 controls.target.set(0, 2, 0);
@@ -60,8 +60,8 @@ scene.background = new THREE.Color('blue');
 {
     const gltfLoader = new GLTFLoader();
     gltfLoader.load('glTF_models/orbiter_space_shuttle_ov-103_discovery/scene.gltf', (gltf) => {
-        gltf.scene.position.x = 30;
-        gltf.scene.position.z = 15;
+        gltf.scene.position.x = 32;
+        gltf.scene.position.z = 16;
         scene.add(gltf.scene);
     });
 }
@@ -69,8 +69,8 @@ scene.background = new THREE.Color('blue');
 {
     const gltfLoader = new GLTFLoader();
     gltfLoader.load('glTF_models/orbiter_space_shuttle_ov-103_discovery/scene.gltf', (gltf) => {
-        gltf.scene.position.x = -30;
-        gltf.scene.position.z = 15;
+        gltf.scene.position.x = -32;
+        gltf.scene.position.z = 16;
         scene.add(gltf.scene);
     });
 }
@@ -81,8 +81,8 @@ scene.background = new THREE.Color('blue');
     gltfLoader.load('glTF_models/space_cast_one/scene.gltf', (gltf) => {
         gltf.scene.rotation.x = 180;
         gltf.scene.position.x = 0;
-        gltf.scene.position.y = 5;
-        gltf.scene.position.z = 50;
+        gltf.scene.position.y = 8;
+        gltf.scene.position.z = 64;
         scene.add(gltf.scene);
     });
 }
@@ -91,9 +91,9 @@ scene.background = new THREE.Color('blue');
 {
     const gltfLoader = new GLTFLoader();
     gltfLoader.load('glTF_models/foraminifera_zellia_and_parafusulina_pri/scene.gltf', (gltf) => {
-        gltf.scene.position.x = -15;
-        gltf.scene.position.y = 5;
-        gltf.scene.position.z = 15;
+        gltf.scene.position.x = -16;
+        gltf.scene.position.y = 8;
+        gltf.scene.position.z = 16;
         scene.add(gltf.scene);
     });
 }
@@ -101,9 +101,9 @@ scene.background = new THREE.Color('blue');
 {
     const gltfLoader = new GLTFLoader();
     gltfLoader.load('glTF_models/foraminifera_zellia_and_parafusulina_pri/scene.gltf', (gltf) => {
-        gltf.scene.position.x = 15;
-        gltf.scene.position.y = 5;
-        gltf.scene.position.z = 15;
+        gltf.scene.position.x = 16;
+        gltf.scene.position.y = 8;
+        gltf.scene.position.z = 16;
         scene.add(gltf.scene);
     });
 }
@@ -112,8 +112,8 @@ scene.background = new THREE.Color('blue');
     const gltfLoader = new GLTFLoader();
     gltfLoader.load('glTF_models/foraminifera_zellia_and_parafusulina_pri/scene.gltf', (gltf) => {
         gltf.scene.position.x = 0;
-        gltf.scene.position.y = 5;
-        gltf.scene.position.z = 40;
+        gltf.scene.position.y = 8;
+        gltf.scene.position.z = 32;
         scene.add(gltf.scene);
     });
 }
@@ -127,18 +127,18 @@ scene.background = new THREE.Color('blue');
 
     };
 
-    const matChanger = function ( ) {
+    const matChanger = function () {
 
-        postprocessing.bokeh.uniforms[ "focus" ].value = effectController.focus;
-        postprocessing.bokeh.uniforms[ "aperture" ].value = effectController.aperture * 0.00001;
-        postprocessing.bokeh.uniforms[ "maxblur" ].value = effectController.maxblur;
+        postprocessing.bokeh.uniforms["focus"].value = effectController.focus;
+        postprocessing.bokeh.uniforms["aperture"].value = effectController.aperture * 0.00001;
+        postprocessing.bokeh.uniforms["maxblur"].value = effectController.maxblur;
 
     };
 
     const gui = new GUI();
-    gui.add( effectController, "focus", 10.0, 3000.0, 10 ).onChange( matChanger );
-    gui.add( effectController, "aperture", 0, 10, 0.1 ).onChange( matChanger );
-    gui.add( effectController, "maxblur", 0.0, 0.01, 0.001 ).onChange( matChanger );
+    gui.add(effectController, "focus", 10.0, 3000.0, 10).onChange(matChanger);
+    gui.add(effectController, "aperture", 0, 10, 0.1).onChange(matChanger);
+    gui.add(effectController, "maxblur", 0.0, 0.01, 0.001).onChange(matChanger);
 }
 
 const renderPass = new RenderPass(scene, camera);

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Depth of Field</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div>
+    <h2>WebGL version</h2>
+    <p>The <a href="webGL">WebGL version</a> uses only tools available in pure WebGL.
+        It is therefore a low level implementation using OpenGL shaders written in GLSL.</p>
+    <p>In this version we can choose either the <strong>initial stochastic approach</strong> or the <strong>scatter-as-gather
+        approach</strong>, as described in
+        <a href="https://developer.nvidia.com/gpugems/gpugems3/part-iv-image-effects/chapter-28-practical-post-process-depth-field">Practical
+            Post-Process Depth of Field</a> article by NVIDIA.</p>
+    <p>The lens parameters, that the users can vary, are the <strong>focus length</strong>, the <strong>focal
+        aperture</strong> and the <strong>maximum blur</strong>.<br>
+        We can also independently set several other parameters including <strong>hyperbolic blur</strong> and <strong>squared
+            blur</strong>.</p>
+
+
+</div>
+<div>
+    <h2>Three.js version</h2>
+    <p>The <a href="threeJS">Three.js version</a> uses the <a href="https://threejs.org">three.js</a> library.
+        This is a high level implementation which means that we are able to easily add glTF models.<br> The models are
+        taken
+        from <a href="https://sketchfab.com">Sketchfab</a>, the leading platform for 3D & AR on the web.</p>
+    <p>This version uses only the <strong>scatter-as-gather</strong> approach with a gaussian blur.<br>
+        The lens parameters, that the users can vary, are the <strong>focus length</strong>, the <strong>focal
+            aperture</strong> and the <strong>maximum blur</strong>.</p>
+</div>
+
+<footer>All of the code is available on <a href="https://github.com/MarcoBenelli/DepthOfField_WebGL">GitHub</a></footer>
+
+</body>
+</html>

@@ -7,9 +7,9 @@ uniform sampler2D u_Sampler;
 uniform float u_FocalApertureF;
 uniform float u_FocusDistanceF;
 uniform int u_MaxBlurF;
-uniform bool u_HyperbolicF; // if true 1/x-1 else x-1
-uniform bool u_SquaredF; // if true x*x else abs(x)
-uniform bool u_SagF; // Scatter-as-Gather
+uniform bool u_HyperbolicF;// if true 1/x-1 else x-1
+uniform bool u_SquaredF;// if true x*x else abs(x)
+uniform bool u_SagF;// Scatter-as-Gather
 uniform vec2 u_TexResolution;
 in vec2 v_TexCoord;
 in vec4 v_Position;
