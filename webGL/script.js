@@ -391,7 +391,7 @@ function initTextures(gl, n) {
         loadTexture(gl, n, texture, u_Sampler, image);
     };
     // Tell the browser to load an image
-    image.src = 'textures/sky.jpg';
+    image.src = 'textures/bricks.jpg';
 
     return true;
 }
